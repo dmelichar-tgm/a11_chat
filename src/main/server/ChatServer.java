@@ -5,13 +5,12 @@ import java.io.*;
 
 /**
  * ChatServer.java
- * bla bla bla bla
+ * A simple program responsible for handling the messages from multiple Clients.
  * <p>
  * Author: Daniel Melichar
  * Date: 18/04/16
  * Version: 1.0
  */
-
 public class ChatServer implements Runnable {
     private ChatServerThread clients[] = new ChatServerThread[50];
     private ServerSocket server = null;

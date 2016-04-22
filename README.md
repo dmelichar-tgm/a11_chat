@@ -4,13 +4,6 @@
 
 **Klasse**: 5AHITM
 
-### Requirements
-
-
-### Verwendung
-
-
-
 ## Aufgabenstellung: A11 - SERVER CLIENT CHAT
 Erstellen Sie einen Server-Client-Chat!
 
