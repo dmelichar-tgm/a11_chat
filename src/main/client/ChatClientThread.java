@@ -5,19 +5,18 @@ import java.io.*;
 
 /**
  * ChatClientThread
- * blablabalba
+ * Each ChatClient runs using this Thread.
  * <p>
  * Author: Daniel Melichar
  * Date: 18/04/16
  * Version: 1.0
  */
-
 public class ChatClientThread extends Thread {
     private Socket socket = null;
-    private ChatClient client = null;
+    private Clients client = null;
     private DataInputStream streamIn = null;
 
-    public ChatClientThread(ChatClient _client, Socket _socket) {
+    public ChatClientThread(Clients _client, Socket _socket) {
         client = _client;
         socket = _socket;
         open();

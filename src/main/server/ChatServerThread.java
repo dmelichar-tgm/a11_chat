@@ -5,13 +5,12 @@ import java.io.*;
 
 /**
  * ChatServerThread.java
- * blablablabla
+ * The Server is running each Client on its own Thread.
  * <p>
  * Author: Daniel Melichar
  * Date: 18/04/16
  * Version: 1.0
  */
-
 public class ChatServerThread extends Thread {
     private ChatServer server = null;
     private Socket socket = null;

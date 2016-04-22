@@ -5,14 +5,13 @@ import java.io.*;
 
 /**
  * ChatClient.java
- * blablabalba
+ * A simple Messaging client that can be used in a Console.
  * <p>
  * Author: Daniel Melichar
  * Date: 18/04/16
  * Version: 1.0
  */
-
-public class ChatClient implements Runnable {
+public class ChatClient implements Runnable, Clients {
     private Socket socket = null;
     private Thread thread = null;
     private DataInputStream console = null;
@@ -24,6 +23,10 @@ public class ChatClient implements Runnable {
         try {
             socket = new Socket(serverName, serverPort);
             System.out.println("Connected: " + socket);
+            System.out.println();
+            System.out.println("ID: " + socket.getLocalPort());
+            System.out.println("Type .bye to exit");
+            System.out.println("----------------------------------");
             start();
         } catch (UnknownHostException uhe) {
             System.out.println("Host unknown: " + uhe.getMessage());
@@ -46,7 +49,7 @@ public class ChatClient implements Runnable {
 
     public void handle(String msg) {
         if (msg.equals(".bye")) {
-            System.out.println("Good bye. Press RETURN to exit ...");
+            System.out.println("Goodbye!\nPress RETURN to exit ...");
             stop();
         } else
             System.out.println(msg);
