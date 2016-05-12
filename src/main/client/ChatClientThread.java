@@ -1,52 +1,35 @@
 package main.client;
 
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
 
 /**
- * ChatClientThread
- * Each ChatClient runs using this Thread.
+ * ChatClientThread.java
+ * A class that waits for the message from the server and append them to the JTextArea
+ * if we have a GUI or simply System.out.println() it in console mode
  * <p>
  * Author: Daniel Melichar
- * Date: 18/04/16
- * Version: 1.0
+ * Date: 12/05/16
+ * Version: ${VERSION}
  */
-public class ChatClientThread extends Thread {
-    private Socket socket = null;
-    private Clients client = null;
-    private DataInputStream streamIn = null;
 
-    public ChatClientThread(Clients _client, Socket _socket) {
-        client = _client;
-        socket = _socket;
-        open();
-        start();
-    }
+class ChatClientThread extends Thread {
 
-    public void open() {
-        try {
-            streamIn = new DataInputStream(socket.getInputStream());
-        } catch (IOException ioe) {
-            System.out.println("Error getting input stream: " + ioe);
-            client.stop();
-        }
-    }
+    private ChatClient cc;
 
-    public void close() {
-        try {
-            if (streamIn != null) streamIn.close();
-        } catch (IOException ioe) {
-            System.out.println("Error closing input stream: " + ioe);
-        }
+    ChatClientThread(ChatClient cc) {
+        this.cc = cc;
     }
 
     public void run() {
-        while (true) {
+        while(true) {
             try {
-                client.handle(streamIn.readUTF());
-            } catch (IOException ioe) {
-                System.out.println("Listening error: " + ioe.getMessage());
-                client.stop();
+                cc.printMessage();
+            }
+            catch(IOException e) {
+                cc.handleMessage(e);
+            }
+            // can't happen with a String object but need the catch anyhow
+            catch(ClassNotFoundException e2) {
             }
         }
     }
