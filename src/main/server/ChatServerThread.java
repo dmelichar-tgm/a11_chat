@@ -5,16 +5,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
- * ${FILE_NAME}
- * <File Purpose>
+ * ChatServerThread.java
+ * This is the thread that is being created for every User (the naming may have been done badly).
  * <p>
  * Author: Daniel Melichar
  * Date: 12/05/16
- * Version: ${VERSION}
+ * Version: 1.0
  */
 class ChatServerThread extends Thread {
+    private static final Logger LOGGER = Logger.getLogger( ChatServerThread.class.getName() );
+
     // the socket where to listen/talk
     Socket socket;
     ObjectInputStream sInput;
@@ -36,10 +39,10 @@ class ChatServerThread extends Thread {
         id = ++cs.uniqueId;
         this.socket = socket;
         this.cs = cs;
-			/* Creating both Data Stream */
-        System.out.println("Thread trying to create Object Input/Output Streams");
-        try
-        {
+
+        /* Creating both Data Stream */
+        LOGGER.info("Thread trying to create Object Input/Output Streams");
+        try {
             // create output first
             sOutput = new ObjectOutputStream(socket.getOutputStream());
             sInput  = new ObjectInputStream(socket.getInputStream());

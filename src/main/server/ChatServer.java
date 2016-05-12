@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * ChatServer.java
@@ -29,6 +30,9 @@ public class ChatServer {
     private int port;
     // the boolean that will be turned of to stop the server
     private boolean keepGoing;
+
+    // for output and errors
+    private static final Logger LOGGER = Logger.getLogger( ChatServer.class.getName() );
 
 
     /*
@@ -117,7 +121,7 @@ public class ChatServer {
     protected void display(String msg) {
         String time = sdf.format(new Date()) + " " + msg;
         if(sg == null)
-            System.out.println(time);
+            LOGGER.info(time);
         else
             sg.appendEvent(time + "\n");
     }
@@ -130,7 +134,7 @@ public class ChatServer {
         String messageLf = time + " " + message + "\n";
         // display message on console or GUI
         if(sg == null)
-            System.out.print(messageLf);
+            LOGGER.info(messageLf);
         else
             sg.appendRoom(messageLf);     // append in the room window
 
@@ -174,14 +178,14 @@ public class ChatServer {
                     portNumber = Integer.parseInt(args[0]);
                 }
                 catch(Exception e) {
-                    System.out.println("Invalid port number.");
-                    System.out.println("Usage is: > java Server [portNumber]");
+                    LOGGER.info("Invalid port number.");
+                    LOGGER.info("Usage is: > java Server [portNumber]");
                     return;
                 }
             case 0:
                 break;
             default:
-                System.out.println("Usage is: > java Server [portNumber]");
+                LOGGER.info("Usage is: > java Server [portNumber]");
                 return;
 
         }

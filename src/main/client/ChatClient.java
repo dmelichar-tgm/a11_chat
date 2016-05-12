@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * ChatClient.java
@@ -17,6 +18,9 @@ import java.util.Scanner;
  * Version: 1.0
  */
 public class ChatClient {
+
+    // for output and errors
+    private static final Logger LOGGER = Logger.getLogger( ChatClient.class.getName() );
 
     // for I/O
     private ObjectInputStream sInput;		// to read from the socket
@@ -103,7 +107,7 @@ public class ChatClient {
      */
     private void display(String msg) {
         if(cg == null)
-            System.out.println(msg);      // println in console mode
+            LOGGER.info(msg);  // println in console mode
         else
             cg.append(msg + "\n");		// append to the ClientGUI JTextArea (or whatever)
     }
@@ -178,8 +182,8 @@ public class ChatClient {
                     portNumber = Integer.parseInt(args[1]);
                 }
                 catch(Exception e) {
-                    System.out.println("Invalid port number.");
-                    System.out.println("Usage is: > java Client [username] [portNumber] [serverAddress]");
+                    LOGGER.warning("Invalid port number");
+                    LOGGER.warning("Usage is: > java Client [username] [portNumber] [serverAddress]");
                     return;
                 }
                 // > javac Client username
@@ -190,7 +194,7 @@ public class ChatClient {
                 break;
             // invalid number of arguments
             default:
-                System.out.println("Usage is: > java Client [username] [portNumber] {serverAddress]");
+                LOGGER.warning("Usage is: > java Client [username] [portNumber] [serverAddress]");
                 return;
         }
         // create the Client object
@@ -205,7 +209,7 @@ public class ChatClient {
         Scanner scan = new Scanner(System.in);
         // loop forever for message from the user
         while(true) {
-            System.out.print("> ");
+            LOGGER.info("> ");
             // read message from user
             String msg = scan.nextLine();
             // logout if message is LOGOUT
@@ -230,8 +234,8 @@ public class ChatClient {
         String msg = (String) sInput.readObject();
         // if console mode print the message and add back the prompt
         if(cg == null) {
-            System.out.println(msg);
-            System.out.print("> ");
+            LOGGER.info(msg);
+            LOGGER.info("> ");
         }
         else {
             cg.append(msg);
